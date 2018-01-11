@@ -1,0 +1,33 @@
+name: lxdui
+version: git
+summary: A web UI for the native Linux container technology LXD/LXC
+description: |
+ LXDUI is a Python Flask application that leverages LXD's Python client 
+ library, pylxd (https://github.com/lxc/pylxd), for interacting with the LXD 
+ REST API. It allows for rapid provisioning and management of large number of 
+ containers from a web browser, and you can simultaneously create any number of 
+ containers, even from multiple images, in one step.
+
+grade: stable
+confinement: strict
+
+apps:
+  lxdui:
+    command: bin/lxdui
+    daemon: simple
+    environment:
+      LC_ALL: C.UTF-8
+    restart-condition: always
+    plugs:
+      - lxd
+      - lxd-support
+      - network
+      - network-bind
+      - network-control
+      - network-manager
+
+parts:
+  lxdui:
+    source: .
+    plugin: python
+    python-version: python2
